@@ -1,63 +1,66 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.*;
 
 public class GestorServicios {
 
-    public void crearServicios() {
+    private List<ServicioTuristico> servicios;
 
-        RutaGastronomica ruta1 =
+    public GestorServicios() {
+
+        servicios = new ArrayList<>();
+
+        cargarServicios();
+
+    }
+
+    private void cargarServicios() {
+
+        servicios.add(
                 new RutaGastronomica(
                         "Ruta Cervecera",
                         5,
-                        6);
+                        6));
 
-        RutaGastronomica ruta2 =
+        servicios.add(
                 new RutaGastronomica(
                         "Sabores del Sur",
                         4,
-                        5);
+                        5));
 
-        PaseoLacustre paseo1 =
+        servicios.add(
                 new PaseoLacustre(
                         "Lago Llanquihue",
                         3,
-                        "Catamarán");
+                        "Catamarán"));
 
-        PaseoLacustre paseo2 =
+        servicios.add(
                 new PaseoLacustre(
                         "Todos los Santos",
                         2,
-                        "Lancha");
+                        "Lancha"));
 
-        ExcursionCultural excursion1 =
+        servicios.add(
                 new ExcursionCultural(
                         "Frutillar Colonial",
                         4,
-                        "Museo Colonial Alemán");
+                        "Museo Colonial Alemán"));
 
-        ExcursionCultural excursion2 =
+        servicios.add(
                 new ExcursionCultural(
                         "Puerto Varas Histórico",
                         3,
-                        "Iglesia del Sagrado Corazón");
+                        "Iglesia del Sagrado Corazón"));
 
-        System.out.println(ruta1);
-        System.out.println("---------------------");
+    }
 
-        System.out.println(ruta2);
-        System.out.println("---------------------");
+    public List<ServicioTuristico> getServicios() {
 
-        System.out.println(paseo1);
-        System.out.println("---------------------");
+        return servicios;
 
-        System.out.println(paseo2);
-        System.out.println("---------------------");
-
-        System.out.println(excursion1);
-        System.out.println("---------------------");
-
-        System.out.println(excursion2);
     }
 
 }
