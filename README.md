@@ -6,29 +6,29 @@
 
 * **Nombre:** Gonzalo Bravo Alliende
 * **Asignatura:** Desarrollo Orientado a Objetos I
-* **Carrera:** Analista Programador
-* **Institución:** Duoc UC
+* **Carrera:** Analista Programador Computacional
 
 ---
 
-# 📌 Descripción del Proyecto
+# 📌 Descripción
 
-**Llanquihue Tour App** es una aplicación desarrollada en Java que representa un sistema de gestión de servicios turísticos para la agencia **Llanquihue Tour**.
+**Llanquihue Tour App** es un proyecto desarrollado en Java que simula un sistema de gestión para una agencia de turismo.
 
-En esta etapa del proyecto se incorporan los conceptos de **herencia**, **polimorfismo** y **colecciones genéricas**, permitiendo almacenar distintos tipos de servicios turísticos dentro de una misma colección y recorrerlos de forma dinámica utilizando referencias de la superclase.
+A lo largo de las distintas actividades de la asignatura, el sistema ha evolucionado incorporando conceptos fundamentales de la Programación Orientada a Objetos, como encapsulamiento, herencia, polimorfismo, interfaces, colecciones genéricas y una interfaz gráfica básica.
 
-La solución está diseñada para ser escalable, facilitando la incorporación de nuevos tipos de servicios turísticos sin modificar la lógica principal del sistema.
+En esta versión se implementa una interfaz común para todas las entidades administradas por la agencia, permitiendo tratarlas de forma unificada mediante polimorfismo y diferenciarlas dinámicamente utilizando el operador `instanceof`. Además, se incorpora una interfaz gráfica sencilla con `JOptionPane` para facilitar el ingreso de información por parte del usuario.
 
 ---
 
 # 🎯 Objetivos
 
-* Aplicar el principio de **herencia** mediante una jerarquía de clases.
-* Implementar **polimorfismo** utilizando referencias de la superclase.
-* Utilizar **colecciones genéricas** (`List`) para almacenar diferentes objetos.
-* Sobrescribir métodos mediante la anotación `@Override`.
-* Organizar el proyecto utilizando paquetes según su responsabilidad.
-* Generar una salida clara y ordenada por consola.
+* Aplicar interfaces en Java.
+* Implementar herencia mediante una superclase abstracta.
+* Utilizar polimorfismo con referencias a una interfaz.
+* Almacenar objetos de distintos tipos en una colección genérica.
+* Identificar tipos de objetos mediante `instanceof`.
+* Crear una interfaz gráfica simple utilizando `JOptionPane`.
+* Mantener una arquitectura organizada y escalable.
 
 ---
 
@@ -40,13 +40,19 @@ LlanquihueTourApp
 ├── src
 │
 ├── model
+│   ├── Registrable.java
+│   ├── RecursoAgencia.java
+│   ├── GuiaTuristico.java
+│   ├── Vehiculo.java
+│   ├── ColaboradorExterno.java
+│   │
 │   ├── ServicioTuristico.java
 │   ├── RutaGastronomica.java
 │   ├── PaseoLacustre.java
 │   └── ExcursionCultural.java
 │
 ├── data
-│   └── GestorServicios.java
+│   └── GestorEntidades.java
 │
 └── ui
     └── Main.java
@@ -54,160 +60,116 @@ LlanquihueTourApp
 
 ---
 
-# 📦 Descripción de los Paquetes
+# 🧬 Arquitectura
 
-## 📁 model
-
-Contiene la jerarquía de clases del sistema.
-
-### ServicioTuristico
-
-Superclase que representa un servicio turístico genérico.
-
-**Atributos**
-
-* nombre
-* duracionHoras
-
-**Métodos principales**
-
-* mostrarInformacion()
-* getters y setters
-* constructor
-
----
-
-### RutaGastronomica
-
-Hereda de **ServicioTuristico**.
-
-**Atributo propio**
-
-* numeroDeParadas
-
-Sobrescribe el método:
-
-```java
-mostrarInformacion()
-```
-
----
-
-### PaseoLacustre
-
-Hereda de **ServicioTuristico**.
-
-**Atributo propio**
-
-* tipoEmbarcacion
-
-Sobrescribe el método:
-
-```java
-mostrarInformacion()
-```
-
----
-
-### ExcursionCultural
-
-Hereda de **ServicioTuristico**.
-
-**Atributo propio**
-
-* lugarHistorico
-
-Sobrescribe el método:
-
-```java
-mostrarInformacion()
-```
-
----
-
-## 📁 data
-
-### GestorServicios
-
-Clase responsable de administrar los servicios turísticos.
-
-Funciones principales:
-
-* Crear la colección `List<ServicioTuristico>`.
-* Agregar objetos de distintos tipos.
-* Entregar la colección para su recorrido.
-
----
-
-## 📁 ui
-
-### Main
-
-Clase principal del sistema.
-
-Desde esta clase se:
-
-* instancia el gestor;
-* obtiene la colección de servicios;
-* recorre la lista utilizando un `for-each`;
-* invoca el método `mostrarInformacion()` de forma polimórfica.
-
----
-
-# 🧬 Diagrama de Herencia
+## Interfaz
 
 ```text
-                    ServicioTuristico
-                           │
-        ┌──────────────────┼──────────────────┐
-        │                  │                  │
-        │                  │                  │
-RutaGastronomica    PaseoLacustre    ExcursionCultural
+Registrable
 ```
 
-Todas las subclases reutilizan los atributos comunes definidos en **ServicioTuristico** y especializan su comportamiento mediante la sobrescritura del método `mostrarInformacion()`.
+Define el comportamiento común mediante el método:
+
+* `mostrarResumen()`
+
+---
+
+## Superclase
+
+```text
+RecursoAgencia
+```
+
+Contiene los atributos comunes para todas las entidades administradas por la agencia.
+
+---
+
+## Subclases
+
+* GuiaTuristico
+* Vehiculo
+* ColaboradorExterno
+
+Cada una implementa su propia versión de `mostrarResumen()` mediante sobrescritura (`@Override`).
+
+---
+
+# 📊 Nueva Jerarquía implementada en el Sistema
+
+```text
+                   Registrable
+                        ▲
+                        │
+               RecursoAgencia
+        ┌────────────┼────────────┐
+        │            │            │
+        │            │            │
+ GuiaTuristico   Vehiculo   ColaboradorExterno
+```
 
 ---
 
 # 🔄 Polimorfismo
 
-El proyecto implementa polimorfismo utilizando una colección del tipo:
+Todas las entidades se almacenan en una misma colección:
 
 ```java
-List<ServicioTuristico>
+ArrayList<Registrable>
 ```
 
-Dentro de esta colección se almacenan objetos de diferentes subclases:
+Esto permite recorrer los objetos sin importar su tipo concreto.
 
-* RutaGastronomica
-* PaseoLacustre
-* ExcursionCultural
+Durante el recorrido, Java ejecuta automáticamente el método `mostrarResumen()` correspondiente a cada clase.
 
-Al recorrer la colección, el sistema invoca automáticamente el método `mostrarInformacion()` correspondiente al tipo real de cada objeto, sin necesidad de utilizar `instanceof`.
+---
+
+# 🔍 Uso de instanceof
+
+El operador `instanceof` permite identificar el tipo específico de cada objeto durante la ejecución para aplicar comportamientos particulares.
+
+Ejemplo:
+
+* GuiaTuristico
+* Vehiculo
+* ColaboradorExterno
+
+---
+
+# 🖥️ Interfaz Gráfica
+
+La aplicación incorpora una interfaz básica desarrollada con `JOptionPane`.
+
+Permite:
+
+* Registrar un guía turístico.
+* Registrar un vehículo.
+* Crear objetos de manera interactiva.
+* Mostrar un mensaje de confirmación.
+* Visualizar el resultado mediante consola.
 
 ---
 
 # ⚙️ Funcionalidades
 
-✅ Implementación de una jerarquía de clases mediante herencia.
+✅ Herencia.
 
-✅ Sobrescritura del método `mostrarInformacion()`.
+✅ Interfaces.
 
-✅ Uso de la anotación `@Override`.
+✅ Polimorfismo.
 
-✅ Colección genérica `List<ServicioTuristico>`.
+✅ Sobrescritura de métodos.
 
-✅ Almacenamiento de diferentes tipos de servicios turísticos.
+✅ Colecciones genéricas (`ArrayList`).
 
-✅ Recorrido de la colección mediante `for-each`.
+✅ Uso de `instanceof`.
 
-✅ Aplicación de polimorfismo en tiempo de ejecución.
+✅ GUI con `JOptionPane`.
 
-✅ Organización del proyecto por paquetes.
+✅ Organización modular por paquetes.
 
 ---
 
-# ▶️ Cómo Ejecutar el Proyecto
+# ▶️ Ejecución
 
 ## Requisitos
 
@@ -216,84 +178,32 @@ Al recorrer la colección, el sistema invoca automáticamente el método `mostra
 
 ## Pasos
 
-1. Clonar o descargar el repositorio.
+1. Clonar el repositorio.
 2. Abrir el proyecto en IntelliJ IDEA.
-3. Esperar la indexación del proyecto.
-4. Ejecutar la clase:
+3. Ejecutar la clase:
 
 ```text
 ui.Main
 ```
 
-5. Observar la salida generada en la consola.
+4. Ingresar los datos solicitados por la interfaz gráfica.
+5. Observar la salida en consola.
 
 ---
 
-# 🖥️ Ejemplo de Salida
-
-```text
-=====================================
-LLANQUIHUE TOUR APP
-POLIMORFISMO
-=====================================
-
-===== RUTA GASTRONÓMICA =====
-Nombre: Ruta Cervecera
-Duración: 5 horas
-Número de paradas: 6
-
-===== PASEO LACUSTRE =====
-Nombre: Lago Llanquihue
-Duración: 3 horas
-Embarcación: Catamarán
-
-===== EXCURSIÓN CULTURAL =====
-Nombre: Frutillar Colonial
-Duración: 4 horas
-Lugar histórico: Museo Colonial Alemán
-```
-
----
-
-# 💻 Tecnologías Utilizadas
+# 💻 Tecnologías
 
 * Java
 * IntelliJ IDEA
-* Programación Orientada a Objetos (POO)
+* Programación Orientada a Objetos
+* Interfaces
 * Herencia
 * Polimorfismo
-* Sobrescritura de métodos
-* Colecciones Genéricas (`List`)
-* Encapsulamiento
-* Organización modular mediante paquetes
-
----
-
-# 📖 Conceptos Aplicados
-
-* Clases y objetos.
-* Herencia.
-* Sobrescritura de métodos (`@Override`).
-* Polimorfismo.
-* Referencias a la superclase.
-* Colecciones genéricas (`List`).
-* Recorrido mediante `for-each`.
-* Organización modular del código.
-
----
-
-# 📈 Posibles Mejoras Futuras
-
-* Lectura de servicios desde archivos `.txt` o `.csv`.
-* Persistencia en bases de datos.
-* Interfaz gráfica con Swing.
-* Gestión de reservas de clientes.
-* Registro de guías turísticos y operadores.
-* Filtros por duración, tipo de servicio y precio.
-* Integración con sistemas de reportes.
+* Colecciones Genéricas
+* JOptionPane
 
 ---
 
 # 📄 Licencia
 
-Este proyecto fue desarrollado exclusivamente con fines académicos como parte de la asignatura **Desarrollo Orientado a Objetos I**.
+Proyecto desarrollado con fines exclusivamente académicos para la asignatura **Desarrollo Orientado a Objetos I** de **Duoc UC**.
